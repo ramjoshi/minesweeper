@@ -1,0 +1,260 @@
+//////////
+// Pallete
+//////////
+@dwhite: #CDCDCD;
+@dgray: #777;
+@dark: #333;
+
+//////////
+// Types
+//////////
+@sansserif: "Open Sans", "Helvetica Neue", Helvetica, Arial, Sans-Serif;
+
+
+//////////
+// Mixins
+//////////
+.reset {
+    margin: 0;
+    padding: 0;
+}
+
+.list_reset {
+    ul, li {
+        .reset;
+        list-style-type: none;
+    }
+}
+
+.cover_image (@url) {
+    background: url('@{url}') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.rounded-corners (@radius: 5px) {
+    border-radius: @radius;
+    -webkit-border-radius: @radius;
+    -moz-border-radius: @radius;
+}
+
+//////////
+// Styles
+//////////
+
+// for sticky footnote
+html, body, #container { height: 100%; width: 100%;}
+#container { height: auto; min-height: 100%; }
+
+html, body {
+    .reset;
+}
+
+body {
+    font-size: 62.5%;
+    font-family: @sansserif;
+    .cover_image('../images/minesweeper.jpg');
+}
+
+header {
+    overflow-y: auto;
+    overflow-x: hidden;
+    background-color: rgba(0,0,0,.75);
+    padding: 0 0 1em 2em;
+    h1 {
+        .reset;
+        float: left;
+        font-size: 6em;
+        margin-right: .5em;
+        width: 6em;
+        color: whitesmoke;
+        font-weight: normal;
+        text-shadow: 0 1px 0 black;
+    }
+
+    .list_reset;
+    #legend {
+        float: left;
+        padding-top: 2em;
+        width: 80em;
+        opacity: .75;
+        li {
+            display: inline-block;
+            font-size: 3em;
+            margin-right: 1em;
+            height: 40px;
+            padding-left: 50px;
+            color: @dwhite;
+            background-repeat: no-repeat;
+        }
+        #legend_flag {
+            background-image: url('../images/flag_40x40.png');
+        }
+        #legend_new {
+            background-image: url('../images/smiley_40x40.png');
+        }
+        #legend_win {
+            background-image: url('../images/smiley_won_40x40.png');
+        }
+        #legend_loose {
+            background-image: url('../images/smiley_lost_40x40.png');
+        }
+    }
+}
+
+#wrapper {
+    overflow: auto;
+    margin-top: 1em;
+}
+
+section {
+    float: left;
+    margin: 0 0 2em 2em;
+    padding: 2em;
+    color: @dwhite;
+    background-color: rgba(0,0,0,.8);
+    box-shadow: .5em .5em 2em .25em rgba(0,0,0,.9);
+}
+
+#settings {
+    width: 32em;
+    .setting {
+        font-size: 2em;
+        label {
+            width: 8em;
+            float: left;
+            text-align: right;
+        }
+        input {
+            float: right;
+        }
+        .clear {
+            clear: both;
+        }
+    }
+}
+
+#menu {
+    font-size: 4em;
+    overflow: auto;
+
+    .list_reset;
+    li {
+        display: inline-block;
+        font-size: 1.5em;
+        width: 33.3333%;
+    }
+    #counter {
+    }
+    #smiley {
+        height: 60px;
+        background-image: url('../images/smiley_60x60.png');
+        background-repeat: no-repeat;
+        background-position: center;
+        cursor: pointer;
+    }
+    #smiley:hover {
+        background-image: url('../images/smiley2_60x60.png');
+    }
+    #smiley.won {
+        background-image: url('../images/smiley_won_60x60.png');
+    }
+    #smiley.lost {
+        background-image: url('../images/smiley_lost_60x60.png');
+    }
+
+    #cheat {
+        text-align: right;
+        span { 
+            font-size: .5em; 
+            cursor: pointer;
+            color: @dgray;
+        }
+    }
+    #cheat span.cheating {
+        color: whitesmoke;
+    }
+}
+
+#tilewrap {
+    font-size: 4em;
+    background-color: rgba(0,0,0,.25);
+    border: outset .25em @dark;
+    .rounded-corners(.25em);
+
+    .tile {
+        float: left;
+        width: 1em;
+        height: 1em;
+        background-color: @dwhite;
+        border: outset .075em @dark;
+        .rounded-corners(.15em);
+        text-align: center;
+        background-repeat: no-repeat;
+
+        span {
+            color: red;
+        }
+        span.minecount1 {
+            color: blue;
+        }
+        span.minecount2 {
+            color: green;
+        }
+
+    }
+    .tile.covered {
+        cursor: pointer;
+    }
+    .tile.uncovered {
+        background-color: transparent;
+        padding: .075em;
+        border: none;
+        border-radius: 0;
+    }
+    .tile.outside {
+        visibility: hidden;
+        width: 0;
+        height: 0;
+        padding: 0;
+    }
+    .tile.count {
+    }
+    .tile.flag {
+        background-image: url('../images/flag_40x40.png');
+    }
+    .tile.guess {
+        background-image: url('../images/guess_40x40.png');
+    }
+    .tile.explosion {
+        background-image: url('../images/mine_exploded_40x40.png');
+    }
+    .tile.reveal_mine {
+        background-image: url('../images/mine_40x40.png');
+    }
+    .tile.reveal_mine_won {
+        background-image: url('../images/mine_won_40x40.png');
+    }
+    .tile.reveal_mine_wrong {
+        background-image: url('../images/mine_wrong_40x40.png');
+    }
+}
+
+//////////
+// Sticky footnote
+//////////
+#rockbottom {
+    position: relative;
+    z-index: 10;
+    height: 2em;
+    margin-top: -2em;
+    text-align: center;
+    color: @dark;
+    a, a:hover, a:active {
+        color: @dark;
+        text-decoration: none;
+        font-weight: bold;
+    }
+}
